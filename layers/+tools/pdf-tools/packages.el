@@ -16,6 +16,11 @@
   (use-package pdf-tools
     :defer t
     :mode (("\\.pdf$" . pdf-view-mode))
+    :init
+    (when (configuration-layer/layer-usedp 'gnus)
+      (with-eval-after-load 'mailcap
+        (mailcap-add "application/pdf" 'pdf-view-mode '(eq window-system 'x))))
+
     :config
     (progn
       (pdf-tools-install)
